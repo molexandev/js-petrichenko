@@ -1,4 +1,5 @@
 'use strict';
+'use strict';
 // a = 15;
 // console.log(a);
 // let number = 5;
@@ -61,18 +62,18 @@
 //         'logan': '8.1'
 //     }
 
-const numberOfFilms = prompt('Сколько фильмов вы посмотрели?', '');
-const personalMovieDB = {
-   count: numberOfFilms,
-   movies: {},
-   actors: {},
-   genres: [],
-   privat: false,
-};
+// const numberOfFilms = prompt('Сколько фильмов вы посмотрели?', '');
+// const personalMovieDB = {
+//    count: numberOfFilms,
+//    movies: {},
+//    actors: {},
+//    genres: [],
+//    privat: false,
+// };
 
-for (let i = 0; i < 2; i++) {
-   const filmName = prompt('Один из последних просмотренных фильмов?', '');
-   const filmRating = prompt('На сколько оцените его?', '');
-   personalMovieDB.movies[filmName] = filmRating;
-}
-console.log(personalMovieDB);
+// for (let i = 0; i < 2; i++) {
+//    const filmName = prompt('Один из последних просмотренных фильмов?', '');
+//    const filmRating = prompt('На сколько оцените его?', '');
+//    personalMovieDB.movies[filmName] = filmRating;
+// }
+// console.log(personalMovieDB);
