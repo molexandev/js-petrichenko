@@ -41,13 +41,55 @@
 
 // 2. Arrays
 
-const arr = [1, 28, 53, 156, 8, 10];
-arr.sort(compareNum);
-console.log(arr);
+// const arr = [1, 28, 53, 156, 8, 10];
 
-function compareNum(a, b) {
-   return a - b;
-}
+// Linear search in array
+
+// function LinearSearch(t, A) {
+//    // t - искомый элемент,
+//    // A - массив, в котором ищем.
+//    var n = A.length,
+//       i = 0;
+
+//    A[n] = t;
+
+//    while (A[i] !== t) i++;
+
+//    if (i < n) return i; // На выходе индекс искомого элемента.
+//    else return -1; // Если искомого элемента нет в массиве, то -1.
+// }
+// console.log(LinearSearch(53, arr));
+
+// END linear search in array
+
+// Binary search in array
+
+// function BinarySearch(t, A) {
+//    // t - искомый элемент,
+//    // A - упорядоченный массив, в котором ищем.
+//    var i = 0,
+//       j = A.length,
+//       k;
+
+//    while (i < j) {
+//       k = Math.floor((i + j) / 2);
+//       if (t <= A[k]) j = k;
+//       else i = k + 1;
+//    }
+
+//    if (A[i] === t) return i; // На выходе индекс искомого элемента.
+//    else return -1; // Если искомого элемента нет в массиве, то -1.
+// }
+// console.log(BinarySearch(28, arr));
+
+// END binary search in array
+
+// arr.sort(compareNum);
+// console.log(arr);
+
+// function compareNum(a, b) {
+//    return a - b;
+// }
 
 // arr[99] = 0;
 // console.log(arr.length);
