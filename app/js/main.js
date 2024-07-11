@@ -1,5 +1,5 @@
 'use strict';
-'use strict';
+
 // a = 15;
 // console.log(a);
 // let number = 5;
