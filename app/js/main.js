@@ -74,8 +74,6 @@ genres
 
 P.S. Функции вызывать не обязательно */
 
-'use strict';
-
 // const personalMovieDB = {
 //    count: 0,
 //    movies: {},
