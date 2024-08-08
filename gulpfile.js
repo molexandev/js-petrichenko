@@ -75,6 +75,7 @@ function scripts() {
       'app/js/40_exercise.js',
       'app/js/46_exercise.js',
       'app/js/76_exercise.js',
+      'app/js/summary.js',
       'app/js/main.js',
    ])
       .pipe(concat('main.min.js'))
