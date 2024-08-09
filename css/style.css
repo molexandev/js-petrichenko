@@ -1,0 +1,177 @@
+@charset "UTF-8";
+@font-face {
+  font-family: "Cardo-Regular";
+  font-weight: 400;
+  font-style: normal;
+  src: local("Cardo-Regular"), url("../fonts/Cardo-Regular.woff2") format("woff2"), url("../fonts/Cardo-Regular.woff") format("woff");
+  font-display: swap;
+}
+@font-face {
+  font-family: "Inter-Regular";
+  font-weight: 400;
+  font-style: normal;
+  src: local("Inter-Regular"), url("../fonts/Inter-Regular.woff2") format("woff2"), url("../fonts/Inter-Regular.woff") format("woff");
+  font-display: swap;
+}
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+ul[class],
+ol[class] {
+  padding: 0;
+}
+
+ul[class] {
+  list-style: none;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ol[class],
+ul[class],
+li,
+figure,
+figcaption,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+input[type=number],
+input[type=number]:hover,
+input[type=number]:focus {
+  -webkit-appearance: none;
+          appearance: none;
+  -moz-appearance: textfield;
+}
+
+body {
+  height: 100vh;
+  font-size: 2.1875rem;
+}
+
+a {
+  text-decoration: none;
+}
+
+button {
+  border: 0;
+}
+
+/* =============================*/
+.wrapper {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.main {
+  flex: 1 1 auto;
+  z-index: 0;
+}
+
+.container {
+  max-width: 1470px;
+  padding: 0 15px;
+  margin: 0 auto;
+}
+
+/* Сховати елемент не видаляючи з DOM */
+.visually-hidden {
+  position: absolute;
+  left: -10000px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+button {
+  margin-bottom: 50px;
+}
+
+.overlay {
+  padding: 50px;
+  background-color: #ffb6b6;
+  display: inline-block;
+}
+
+.link {
+  width: 100px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #0ff;
+}
+
+.arrow-go-up {
+  position: relative;
+}
+.arrow-go-up__svg {
+  width: 32px;
+  height: 14px;
+  transform: rotate(-90deg);
+  transition: all 0.3s;
+  stroke: #4d7ecc;
+}
+
+#scrollToTopBtn {
+  position: fixed;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  bottom: 30px;
+  right: 30px;
+  width: 50px;
+  height: 50px;
+  border-radius: 7px;
+  background-color: #1B3764;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+#scrollToTopBtn:hover {
+  background-color: #4d7ecc;
+}
+#scrollToTopBtn:hover .arrow-go-up__svg {
+  stroke: #FFCA42;
+  fill: transparent;
+}
+
+@media (max-width: 767.98px) {
+  .lock {
+    overflow: hidden;
+  }
+}/*# sourceMappingURL=style.css.map */

@@ -1,5 +1,9 @@
 'use strict';
 
+// Про 'use strict'
+
+// https://jsflow.org/docs/use-strict/
+
 //
 //! 9. Название переменных
 //
@@ -377,3 +381,141 @@
 // console.log(typeof !!'123'); // Два знака "!!" превращают следующее за ним выражение в булиновое.
 
 //
+//! 39. Замыкания
+//
+
+// function createCounter() {
+//    let counter = 0;
+//    const myFunction = function () {
+//       counter = counter + 1;
+//       return counter;
+//    };
+//    return myFunction;
+// }
+// const increment = createCounter();
+// const c1 = increment();
+// const c2 = increment();
+// const c3 = increment();
+// console.log('example increment', c1, c2, c3);
+
+// Способ, с помощью которого я навсегда запомнил замыкания — это сравнение их с рюкзаком. Когда функция создана и передаётся куда-либо, или возвращается из другой функции, то она носит с собой рюкзак. А в этом рюкзаке хранятся все переменные, которые были в области видимости во время создания этой функции.
+
+// https://medium.com/nuances-of-programming/%D1%8F-%D0%BD%D0%B8%D0%BA%D0%BE%D0%B3%D0%B4%D0%B0-%D0%BD%D0%B5-%D0%BF%D0%BE%D0%BD%D0%B8%D0%BC%D0%B0%D0%BB-%D0%B7%D0%B0%D0%BC%D1%8B%D0%BA%D0%B0%D0%BD%D0%B8%D1%8F-%D0%B2-javascript-%D1%87%D0%B0%D1%81%D1%82%D1%8C-%D0%BF%D0%B5%D1%80%D0%B2%D0%B0%D1%8F-3c3f02041970
+
+//
+//! 41.Получение элементов со страницы. DOM
+//
+
+// - DOM - (Document Objekt Model) - объектная модель документа.
+// - Все элементы на странице представлены в виде дерева узлов.
+// - Узлы связаны между собой отношениями "Родительскмй - Дочерний".
+// - Когда документ сфоримрован, мы его можем представить в виде объекта, у которого есть свои методы, как и у обычного объекта.
+
+// const box = document.getElementById('box'); // Получаем элемент по id
+// const btns = document.getElementsByTagName('button'); // Получаем псевдомассив элементов.
+// const btns2 = document.getElementsByTagName('button')[1]; // Получаем конкретный элемент.
+// const circles = document.getElementsByClassName('circles'); // Получаем элементы по классу (HTML коллекция)
+
+// //
+
+// const hearts = document.querySelectorAll('.heart'); // Получаем все элементы по css-селектору (class, id)
+
+// // У HTML-коллекции нет метода forEach(), а у NodeList есть!
+
+// const oneHeart = document.querySelector('.heart'); // Получаем только первый элемент с таким селектором, который в DOM.
+
+// const elem = document.createElement('div'); // Создает елемент div.
+// elem.classList.add('container'); // Добавляет клас для ранее созданного div.
+// document.body.append('div'); // Помещает элемент перед закрывающимся тегом (body).
+// document.body.prepend('div'); // Помещает элемент перед открывающимся тегом (body).
+// elem.before('div'); // Помещпет элемент перед выбраным элементом.
+// elem.after('div'); // Помещпет элемент после выбранного элемента.
+// elem.remove(); // Удаляет элемент со страницы.
+// elem.replaceWith('button'); // Заменяет выбранный элемент на указанный в скобках.
+
+//
+//! 44. События и их обработчики.
+//
+
+// Всплытие событий - это когда обработчик событий сначала срабатывает на самом вложеном элементе, а затем на родителе и выше.
+
+// const btn = document.querySelector('button'),
+//    overlay = document.querySelector('.ocerlay'),
+//    link = document.querySelector('a');
+
+// btn.addEventListener('click', (e) => {
+//    console.log('Hello');
+//    console.log(e.target);
+// });
+
+// 'e' - объект события. Передается как оргумент в callback-функцию.
+
+// let i = 1;
+// const deleteElement = (e) => {
+//    console.log('Hello');
+//    console.log(e.target);
+//    console.log(e.type);
+//    // i++;
+//    // if (i >= 1) {
+//    //    btn.removeEventListener('click', deleteElement); // Этот метод обычно взываетмя в условии, когда что-то произошло и обработчик больше не нужен.
+//    // }
+// };
+
+// btn.addEventListener('click', deleteElement /*{ once: true } */); // У eventListener существует третий аргумент, в который мы можем передать различные опции.
+
+// - метод preventDefault() отменяет стандартное поведение. Помещается в самое начало обработчика событий.
+
+// link.addEventListener('click', (e) => {
+//    e.preventDefault();
+
+//    //
+
+//    console.log(e.target);
+// });
+
+// Чтобы навесить обработчик событий на несколько элементов, нужно после их получения перебрать их с помощью forEach() и внутри него добавить обработчик каждому элементу.
+
+//
+//! 45. Навигация по DOM-дереву. data-атрибуты.
+//
+
+// console.log(document.body); // Обращаемся к бади.
+// console.log(document.head); // Обращаемся к хэв.
+// console.log(document.documentElement); // Обращаемся ко всему документу.
+// console.log(document.body.childNodes); // Обращаемся ко всем узлам, которые есть у бади.
+// console.log(document.body.firstChild); // Получаем первого потомка от бади.
+// console.log(document.body.lastChild); // Получаем последнего потомка от бади.
+// console.log(document.body.firstElementChild); // Получаем первого потомка от бади.
+// console.log(document.body.lastElementChild); // Получаем последнего потомка от бади.
+
+// // Пллучаем НОДЫ (узлы)
+
+// console.log(document.querySelector('.link').parentNode); // Получаем родителя элемента.
+// console.log(document.querySelector('.link').parentNode.parentNode); // Получаем родителя на уровень выше.
+
+// // Data-атрибуты позволяют назначить элементу что-то очень свойственное или, наоборот, универсальное.
+// // Data-атрибуты всегда начинаются со слова "data-", а вторая часть - произвольная.
+// // Пример: <div class="one" data-close data-current="3"></div>;
+
+// // Чтобы получить элемент со страницы нужно:
+// console.log(document.querySelector('[data-current="3"]'));
+// console.log(document.querySelector('[data-current="3"]').nextSibling); // Получаем следующую ноду.
+// console.log(document.querySelector('[data-current="3"]').previousSibling); // Получаем предыдущую ноду.
+
+// // Получаем ЭЛЕМЕНТЫ
+
+// console.log(document.querySelector('[data-current="3"]').nextElementSibling); // Получаем следующий элемент.
+// console.log(
+//    document.querySelector('[data-current="3"]').previousElementSibling
+// ); // Получаем предыдущий элемент.
+// console.log(document.querySelector('.link').parentElement); // Получаем родителя элемента.
+// console.log(document.querySelector('.link').parentElement.parentElement); // Получаем родителя на уровень выше.
+
+// // Получаем все ноды из бади и убираем лишнее (Текстовые ноды "#text").
+// for (let node of document.body.childNodes) {
+//    if (node.nodeName == '#text') {
+//       continue;
+//       // console.log('111');
+//    }
+//    console.log(node);
+// }

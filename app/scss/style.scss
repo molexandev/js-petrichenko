@@ -4,6 +4,22 @@
 @import 'global';
 @import 'libs';
 
+button {
+   margin-bottom: 50px;
+}
+.overlay {
+   padding: 50px;
+   background-color: #ffb6b6;
+   display: inline-block;
+}
+.link {
+   width: 100px;
+   height: 50px;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   background-color: #0ff;
+}
 .arrow-go-up {
    position: relative;
    &__svg {
