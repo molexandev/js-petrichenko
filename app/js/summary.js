@@ -403,7 +403,7 @@
 // https://medium.com/nuances-of-programming/%D1%8F-%D0%BD%D0%B8%D0%BA%D0%BE%D0%B3%D0%B4%D0%B0-%D0%BD%D0%B5-%D0%BF%D0%BE%D0%BD%D0%B8%D0%BC%D0%B0%D0%BB-%D0%B7%D0%B0%D0%BC%D1%8B%D0%BA%D0%B0%D0%BD%D0%B8%D1%8F-%D0%B2-javascript-%D1%87%D0%B0%D1%81%D1%82%D1%8C-%D0%BF%D0%B5%D1%80%D0%B2%D0%B0%D1%8F-3c3f02041970
 
 //
-//! 41.Получение элементов со страницы. DOM
+//! 41. Получение элементов со страницы. DOM
 //
 
 // - DOM - (Document Objekt Model) - объектная модель документа.
@@ -519,3 +519,241 @@
 //    }
 //    console.log(node);
 // }
+
+//
+//! 46. Рекурсия.
+//
+
+// https://ru.hexlet.io/courses/introduction_to_programming/lessons/recursion/theory_unit
+
+// Рекурсия это прием, при котором функция вызывает сама себя внутри себя же.
+// Класический пример рекурси - это функция возведения в степень.
+
+// Требования рекурсии:
+// - Простой базовый случай, или терминальный сценарий, или терминальное условие. Простыми словами, когда остановиться. В нашем примере это был 0: мы остановили вычисление факториала, когда достигли 0.
+// - Правило передвижения по рекурсии, углубление. В нашем случае, это было n * factorial(n-1).
+
+// function pov(x, n) {
+//    let result = 1;
+
+//    for (let i = 0; i < n; i++) {
+//       result *= x;
+//    }
+//    return result;
+// }
+
+// Та же функция, но здесь задача решается с помощью рекурсии.
+
+// function pov(x, n) {
+//    if (n === 1) {
+//       return x;
+//    } else {
+//       return x * pov(x, n - 1);
+//    }
+// }
+
+// console.log(pov(2, 1));
+// console.log(pov(2, 2));
+// console.log(pov(2, 3));
+// console.log(pov(2, 4));
+// console.log(pov(2, 5));
+// console.log(pov(2, 10));
+// console.log(pov(2, 20));
+
+// Вычисляем факториал. Факториал -Это число которое умножается само на себя - 1.
+
+// function factorial(n) {
+//    if (n == 0) {
+//       return 1;
+//    } else {
+//       return n * factorial(n - 1);
+//    }
+// }
+
+// console.log(factorial(7));
+
+//
+//! 47. События на мобильных устройствах.
+//
+
+// // touchstart - событие, которое срабатывает при касании на элемент.
+// // rouchend - противоположное touchmove. При отрыве пальца от элемента.
+// // touchmove - палец при касании начинает двигаться по элементу, то событие срабатывает при каждом движении.
+// // touchenter - когда мы ведем пальцем по экрану и наскальзываем на элемент, на который оно повешено.
+
+// window.addEventListener('DOMContentLoaded', () => { // Ожилание готовности загрузки всего DOM-дерева.
+//    const box = document.querySelector('.box');
+//    box.addEventListener('touchstart', (e) => {
+//       console.log('Start');
+//       console.log(e.touches);
+//    });
+//    box.addEventListener('touchmove', (e) => {
+//       console.log('Move');
+//    });
+//    box.addEventListener('touchend', (e) => {
+//       console.log('End');
+//    });
+// });
+
+//
+//! 48. Async, defer, динамические скрипты.
+//
+
+// // Defer
+// // Атрибут defer в теге <script defer src="js/main.min.js"></script> сообщает браузеру, что он должен продолжать обрабатывать страницу и загружать скрипт в фоновом режиме. Скрипты с таким атрибутом всегда выполняются, когда DOM-дерево уже готово.
+
+// // Async
+// // Страница не ждет асинхронных скриптов. Содержимое просто обрабатывается и отображается.
+// // Событие Домконтентлоадед и асинхронные скрипты не ждут друг друга.
+// // То есть, если мы добавляем атрибут async, то скрип начинает загружаться как только до него доходит очередь, но при этом он запускается как только он был загружен. Он вообще никого не ждет.
+
+// // Скрипты на страницу можно помещить и следующим способом:
+// function loadScripts(src) {
+//    const script = document.createElement('script');
+//    script.src = src;
+//    script.async = false;
+//    document.body.append('script');
+// }
+
+// loadScripts('js/test.js');
+// loadScripts('js/some.js');
+
+//
+//! 52. Оператор нулевого слияния (Нулиш оператор)
+//
+
+// // Оператор нулевого слияния реагирует не на все false значения, а только на null и undefined.
+// // Логический "И" и нулиш операторы не могут быть смешаны внутри одного выражения.
+// // Пример:
+// // console.log(userName && userKey ?? 'User');
+
+// const box2 = document.querySelector('.box-2');
+// const newHeight = 100,
+//    newWidth = 400;
+
+// function chngeParams(elem, h, w) {
+//    elem.style.height = `${h ?? 20}px`;
+//    elem.style.width = `${w ?? 20}px`;
+//    elem.innerHTML = (h ?? 20) * (w ?? 20);
+// }
+
+// chngeParams(box2, newHeight, newWidth);
+
+// let userName;
+// let userKey;
+
+// console.log(userName ?? userKey ?? 'User');
+
+//
+//! 53. Оператор опциональной цепочки.
+//
+
+// // Оператор опциональной цепочки проверяет выражение слева от себя и останавливает операции, если оно имеет значение undefined или null. И при этом возвращает undefined, как результат. Это всё происходит без ошибки.
+// // Оператор опциональной цепочки нужно использовать только там, где предполагаются проблемы.
+
+// const box = document.querySelector('.box');
+// const block = document.querySelector('.block');
+// console.log(block);
+
+// // if (block) {
+// //    console.log(block.textContent); // Как решалась проблема раньше.
+// // }
+
+// // Оператор опциональной цепочки '?':
+// console.log(block?.textContent); // Это работа на чтение свойства, но эсли записать туда что-то, то будет ошибка.
+// // block?.textContent = '123', // Слева от "=" мы, как результат работы, получаем undefined. В резулььаье ошибка.
+// console.log(1 + 2);
+
+// // Ещё один пример
+// const userData = {
+//    name: 'Olex',
+//    age: null,
+//    say: function () {
+//       console.log('Hello');
+//    },
+// };
+
+// // if (userData && userData.skills && userData.skills.js) { // Как решалась проблема раньше.
+// //    console.log(userData.skills.js);
+// // }
+
+// console.log(userData?.skills?.js);
+// userData.say();
+// userData.hay?.(); // Проверка на наличие метода объекта. Показано полное написание оператора.
+
+//
+//! 54. Живые коллекции и полезные методы.
+//
+
+// const boxesQuery = document.querySelectorAll('.box-4');
+// const boxesGet = document.getElementsByClassName('box-4');
+
+// console.log(boxesQuery); // NodeList - есть forEach, entries и т. д.
+// // - мы получили состояние элемента на момент вызова команды querySekectorAll. Это как бы отпечаток (слепок) того, что происходило на тот момент. Эта коллекция статична. Она не знает, что проиходило потом.
+// console.log(boxesGet); // HTMLCollection - нет методов.
+// // - boxesGet, наоборот, отслеживает все изменения в DOM-дереве и дает текущий результат. Результат который мы в этой строке получаем и есть живой коллекцией.
+
+// // console.log(document.body.children);
+
+// // // Ошибки, которые допускают новечки.
+// // for (let i = 0; i < 5; i++) {
+// //    const div = document.createElement('div');
+// //    div.classList.add('box-4');
+// //    document.body.append(div);
+// //    // boxesGet[boxesGet.length] = div; // Выдаст ошибку, так как напрямую работать с HTML-коллекцией именно так нельзя. Это запрещено синтаксисом JS.
+// // }
+
+// boxesQuery[0].remove();
+// boxesGet[0].remove();
+
+// // В современном мире почти для всех задач подходит querySelectorAll, но бывают случаи, когда нам нцжно что-то, чтобы следить за всеми изменениями в DOM-дереые, тогда на посощь приходят живие коллекции. Но у них нет методов для работы с ними. В таком случае применяются разные техники.
+// // Пример:
+// console.log(Array.from(boxesGet)); // Мы создаем массив из массивоподобного объекта.
+// // Проблема в том,что при обращении к HTMLCollection образовался статичный массив, то есть, это уже не живая коллекция, а обычный массив с данными.
+
+// // Ещё два метода.
+// // Иногда у нас есть задача среди всех элементов найти тот, который подъодит по определенным параметрам (css селектор). (Закомментировать 706 и 707)
+// boxesQuery.forEach((box) => {
+//    if (box.matches('.this')) console.log('This one!');
+// });
+
+// console.log(boxesQuery[0].closest('.wrapper-2'));
+
+//
+//! 55. Тип данных Symbol
+//
+
+// // Символы - это уникальные идентификаторы.
+// // Символы всегда уникальны, даже если у них одно описание.
+// // Символи можно создавать разными способами.
+// // Символы можно создавать без описани: let id2 = Symbol();
+
+// let id = Symbol('id');
+
+// const obj = {
+//    name: 'Test',
+//    [id]: 1, // Второй способ создания символов.
+//    getId: function () {
+//       return this[id];
+//    },
+// };
+
+// // let id = Symbol('id');
+// // let id2 = Symbol('id');
+
+// // console.log(id == id2);
+
+// // obj[id] = 1;
+
+// console.log(obj);
+// console.log(obj.getId());
+// console.log(Object.getOwnPropertySymbols(obj));
+// // console.log(obj[id]);
+
+// for (let value in obj) console.log(value);
+
+//
+//! 56. Дескрипторы свойств и полезные методы объектов.
+//
+
+// Пересмотреть лекцию перед собеседованием.

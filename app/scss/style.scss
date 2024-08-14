@@ -4,6 +4,9 @@
 @import 'global';
 @import 'libs';
 
+div {
+   margin-bottom: 33px;
+}
 button {
    margin-bottom: 50px;
 }
@@ -30,6 +33,24 @@ button {
       stroke: $hover;
    }
 }
+.box-2 {
+   width: 300px;
+   height: 250px;
+   background-color: #71fff8;
+}
+.box-3 {
+   width: 300px;
+   height: 250px;
+   background-color: olive;
+}
+.box-4 {
+   width: 300px;
+   height: 250px;
+   background-color: rgb(128, 98, 0);
+}
+//
+
+//
 #scrollToTopBtn {
    position: fixed;
    display: none;
@@ -51,5 +72,10 @@ button {
          fill: transparent;
       }
    }
+}
+.box {
+   width: 333px;
+   height: 333px;
+   background-color: #fff891;
 }
 @import 'media';
