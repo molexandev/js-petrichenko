@@ -756,4 +756,261 @@
 //! 56. Дескрипторы свойств и полезные методы объектов.
 //
 
-// Пересмотреть лекцию перед собеседованием.
+// // У каждого из свойств объекта, помимо значения, есть специальные атрибуты, которые ещё глубже определяют, как именно работает это свойство. Их ещё называют флагами. Всего их 3.
+
+// const user = {
+//    name: 'Olexandr',
+//    surname: 'Motashko',
+//    birthday: '24/12/1988',
+//    showMyPublicData: function () {
+//       console.log(`${this.name} ${this.surname}`);
+//    },
+// };
+
+// user.showMyPublicData();
+
+// console.log(Object.getOwnPropertyDescriptor(user, 'name'));
+
+// Object.defineProperty(user, 'name', { writable: false }); // запрещаем перезаписывать свойство. С
+// Object.defineProperty(user, 'gender', { writable: 'male' }); // помощью defineProperty можно создавать новые свойства с заданными параметрами.
+// console.log(Object.getOwnPropertyDescriptor(user, 'gender'));
+
+// Object.defineProperty(user, 'birthday', { writable: false });
+// console.log(Object.getOwnPropertyDescriptor(user, 'birthday'));
+
+// // writable - если true, то свойство можно изменить, если false - то свойство только для чтения.
+// // enumerable - если true, то свойство будет перечисляться в циклах, false - нет.
+// // configurable - если true, то свойство можно удалить, а атрибуты изменить, false - нет.
+
+// Object.defineProperty(user, 'showMyPublicData', { enumerable: false }); // Мы говорим, что метод не будет перечисляться в циклах.
+
+// for (let key in user) {
+//    console.log(key);
+// }
+
+// Object.defineProperties(user, {
+//    name: { writable: false },
+//    surname: { writable: false },
+// });
+
+// console.log(Object.keys(user));
+// console.log(Object.values(user));
+// console.log(Object.entries(user));
+
+//
+//! 57. Итерируемые (перебираемые) констркции. Отличие for of от for in.
+//
+
+// // По-простому итерируемый объект - это тот, который мы можем использовать в for of.
+// // for in не рекомендуется применять на массивах и строках, так как при переборе данные могут идти не по порядку.
+// // for in получает сам ключ, а при переборе с помощью for of в "key" записывается значение.
+
+// // const user = {
+// //    name: 'Olexandr',
+// //    surname: 'Motashko',
+// //    birthday: '24/12/1988',
+// //    showMyPublicData: function () {
+// //       console.log(`${this.name} ${this.surname}`);
+// //    },
+// // };
+
+// // for (const key in user) {
+// //    console.log(user[key]);
+// // }
+
+// // const arr = ['b', 'a', 'c'];
+
+// // Array.prototype.someMethod = function () {};
+
+// // // for (const key in arr) {
+// // //    console.log(arr[key]);
+// // // }
+
+// // for (const key of arr) {
+// //    console.log([key]);
+// // }
+
+// // const str = 'string';
+
+// // for (const key in str) {
+// //    console.log(str[key]);
+// // }
+
+// const salaries = {
+//    john: 500,
+//    ivan: 1000,
+//    ann: 5000,
+//    sayHello: function () {
+//       console.log('Hello!');
+//    },
+// };
+
+// salaries[Symbol.iterator] = function () {
+//    return {
+//       current: this.john,
+//       last: this.ann,
+//       next() {
+//          if (this.current < this.last) {
+//             this.current += 500;
+//             return { done: false, value: this.current };
+//          } else {
+//             return { done: true };
+//          }
+//       },
+//    };
+// };
+
+// for (let res of salaries) {
+//    console.log(res);
+// }
+
+// const iterator = salaries[Symbol.iterator]();
+// console.log(iterator.next());
+
+//
+//! 58. Map
+//
+
+// // Картами или Map называются спецефические структуры данных, которые очень похожи на объект, но у них вместо свойств может использоваться и объект, и массив, и функция...
+// // Порядок свойств в картах всегда такой, в котором мы их добавляем.
+// // При создании пустой карты в ней ничего не будет содержаться.
+// // Карты легко перебирать.
+// // Размер карты легко получить через size.
+
+// const user = {
+//    name: 'Olexandr',
+//    surname: 'Motashko',
+//    birthday: '24/12/1988',
+//    showMyPublicData: function () {
+//       console.log(`${this.name} ${this.surname}`);
+//    },
+// };
+
+// const userMap = new Map(Object.entries(user));
+// console.log(userMap);
+
+// const newUserObj = Object.fromEntries(userMap);
+// console.log(newUserObj);
+
+// // console.log(user);
+// // console.log(typeof Object.keys(user)[0]);
+
+// // const shops = [{ rice: 500 }, { oil: 200 }, { bread: 50 }];
+
+// // const budget = [5000, 15000, 25000];
+
+// // const map = new Map([
+// //    [
+// //       {
+// //          paper: 400,
+// //       },
+// //       8000,
+// //    ],
+// // ]);
+
+// // shops.forEach((shop, i) => {
+// //    map.set(shop, budget[i]);
+// // });
+
+// // console.log(map);
+
+// // map.set(shops[0], 5000);
+// // console.log(map);
+
+// // console.log(map.get(shops[0]));
+// // console.log(map.has(shops[0]));
+
+// // map.delete(key);
+// // map.clear();
+// // map.size;
+// // map.keys();
+
+// // let goods = [];
+// // for (let shop of map.keys()) {
+// //    goods.push(Object.keys(shop)[0]);
+// // }
+// // console.log(goods);
+
+// // for (let price of map.values()) {
+// //    console.log(price);
+// // }
+
+// // for (let [shop, price] of map.entries()) {
+// //    console.log(price, shop);
+// // }
+
+// // map.forEach((value, key, map) => {
+// //    console.log(key, value);
+// // });
+
+//
+//! 59. Set
+//
+
+// // Set - это особый вид коллекций по типу массивов, где каждое значение может повторяться только один раз.
+// // Если ещё проще - это массив, где каждое значение встречается только однажды.
+
+// // const arr = [1, 1, 2, 2, 3, 4, 5, 6, 5];
+// const arr = ['Alex', 'Anna', 'Olexandr', 'Ivan', 'Alex'];
+
+// const set = new Set(arr);
+
+// set.add('Ivan');
+// set.add('Olexandr');
+
+// console.log(set);
+
+// // set.delete(value);
+// // set.has(value);
+// // set.clear();
+// // set.size;
+
+// // for (let value of set) console.log(value);
+
+// // set.forEach((value, valueAgain, set) => {
+// //    console.log(value, valueAgain);
+// // });
+
+// // console.log(set.values());
+// // console.log(set.keys());
+// // console.log(set.entries());
+
+// function unique(arr) {
+//    return Array.from(new Set(arr));
+// }
+
+// console.log(unique(arr));
+
+//
+//! 60. Bigint
+//
+
+// // Bigint нельзя использовать с методами, со встроенным объектом Math():
+// // console.log(Math.round(57n)); // Ошибка
+
+// // Нельзя смешивать в операциях Bigint и другие числа:
+// // console.log(5n + 1); // Ошибка
+
+// // Складывать Bigint с Bigint можно:
+// // console.log(1n + 2n);
+
+// // Операция деления всегда будет возвращать результат без дробной части.
+
+// // При сравнении Bigint нормально работает. Даже с обычними числами:
+// // console.log(5n > 7);
+// // console.log(2n > 1n);
+
+// // console.log(Number.MAX_SAFE_INTEGER); // 2 в 53-й степены мигус 1
+
+// // const bigint = 777516516516513613516546516516516551n;
+
+// // const sameBigint = BigInt(777516516516513613516546516516516551);
+
+// // console.log(typeof bigint);
+
+// // Чтобы сложить BigInt с Number его нужно конвертировать.
+// let bigint = 1n;
+// let number = 2;
+
+// console.log(bigint + BigInt(number)); // Будет BigInt - 3т
+// console.log(Number(bigint) + number); // Будет Number - 3
