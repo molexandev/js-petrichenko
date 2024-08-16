@@ -1014,3 +1014,117 @@
 
 // console.log(bigint + BigInt(number)); // Будет BigInt - 3т
 // console.log(Number(bigint) + number); // Будет Number - 3
+
+//
+//! 60. ClassList и делегирование событий.
+//
+
+// // Делегирование событий - это один из самих полезных приемов для работы с DOM-деревом.
+// // Он отлично подходит, если есть много элементов с одинаковыми обработчиками.
+// // При динамическом изменении они точно так же будут применяться к новым элементам.
+
+// const btns = document.querySelectorAll('button'),
+//    wrapper = document.querySelector('.btn-block');
+
+// // // console.log(btns[0].classList.length);
+// // // console.log(btns[0].classList.item(0));
+// // console.log(btns[1].classList.add('red', 'black'));
+// // // console.log(btns[0].classList.remove('blue'));
+// // console.log(btns[0].classList.toggle('blue'));
+
+// // if (btns[0].classList.contains('red')) {
+// //    console.log('red1');
+// // }
+
+// btns[0].addEventListener('click', () => {
+//    // if (!btns[1].classList.contains('red')) {
+//    //    btns[1].classList.add('red');
+//    // } else {
+//    //    btns[1].classList.remove('red');
+//    // }
+//    btns[1].classList.toggle('red');
+// });
+
+// // Класическое применение делегирования.
+// // Когда жмем на обвертку - ничего не происходит, а при нажатии на кнопку - действие.
+
+// // 1 Вариант:
+// // wrapper.addEventListener('click', (e) => {
+// //    if (e.target && e.target.tagName == 'BUTTON') {
+// //       console.log('Hello');
+// //    }
+// // });
+
+// // 2 Вариант:
+// wrapper.addEventListener('click', (e) => {
+//    if (e.target && e.target.matches('button.red')) {
+//       console.log('Hello');
+//    }
+// });
+
+// // Без делегирования на динамически созданных элементах событие отрабатывать не будет.
+// // btns.forEach((btn) => {
+// //    btn.addEventListener('click', () => {
+// //       console.log('Hello');
+// //    });
+// // });
+
+// const btn = document.createElement('button');
+// btn.classList.add('red');
+// wrapper.append(btn);
+
+//
+//! 67. Работа с датами.
+//
+
+// // const now = new Date();
+// // console.log(now); // Выводит текущую дату.
+// // console.log(now.getFullYear()); // Показывает текущий год.
+// // console.log(now.getMonth()); // Показывает текущий месяц. Месяцы считаются с 0.
+// // console.log(now.getDate()); // Показывает текущее число месяца.
+// // console.log(now.getDay()); // Показывает текущий день недели.
+// // console.log(now.getHours()); // Показывает текущий час.
+// // console.log(now.getUTCHours()); // Показывает текущий час по UTC.
+
+// // //
+
+// // console.log(now.getTimezoneOffset()); // Показывает разницу меэду текущим ЧП и UTC в минутах.
+
+// // console.log(now.setHours(3)); // Устанавливает принудительно часы.
+// // console.log(now);
+
+// let start = new Date();
+
+// for (let i = 0; i < 100000; i++) {
+//    let some = i ** 3;
+// }
+
+// let end = new Date();
+
+// alert(`Цикл отработал за ${end - start} миллисекунд`);
+
+//
+//! 70. Параметры документа. Окна и работа с ними.
+//
+
+// const box = document.querySelector('.box-5'),
+//    btn = document.querySelector('button');
+
+// // // const width = box.clientWidth;
+// // // const height = box.clientHeight;
+// // const width = box.offsetWidth;
+// // const height = box.offsetHeight;
+// const width = box.scrollWidth;
+// const height = box.scrollHeight;
+
+// console.log(width, height);
+
+// btn.addEventListener('click', () => {
+//    // box.style.height = box.scrollHeight + 'px';
+//    console.log(box.scrollTop);
+// });
+
+// console.log(box.getBoundingClientRect());
+
+// const style = window.getComputedStyle(box); // С помощью этого метода можно получить все его стили, коме инлайновых. Либо один конкретный.
+// console.log(style.flexWrap);
