@@ -1,4 +1,4 @@
-'use strict';
+// 'use strict';
 
 // let str = 'Some';
 // let strObj = new String(str);

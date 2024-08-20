@@ -1128,3 +1128,284 @@
 
 // const style = window.getComputedStyle(box); // С помощью этого метода можно получить все его стили, коме инлайновых. Либо один конкретный.
 // console.log(style.flexWrap);
+
+//
+//! 74. Функции-конструкторы.
+//
+
+// // Такие функции предназначены для конструирования объектов и создания множества подобных копий.
+// // Кроме свойств мы можем записать в нее и какие-то методы.
+// // Создав один раз метод в прототипе, он будет у каждого из потомков.
+// // С помощью свойства prototype мы можем добавлять новые методы и свойства в наш конструктор, которые будут прототипно наследоваться у потомков. Этот прием используется, когда у нас нет доступа к прототипу, либо мы его не можем менять по каким-то причинам, но его нужно немного модифицировать, чтобы добавить каких-то дополнительных плюшек.
+
+// // Конструкторы нам необходимы для создания новых однотипных объектов (новые пользователи сайта, товары в магазинах и т. д.).
+
+// // Мы разобрали стандарт ES 5. Это то, как на самом деле всё происходит под капотом JS.
+// // В стандарте ES 6 появилась такая вещь, как Классы. Классы - это так называемый синтактический сахар, то есть, красивая обвертка того функционала, который существует внутри. Классы действительно удобней использовать. По этому, весь реальный функцционал создается именно с использованием классов.
+
+// function User(name, id) {
+//    this.name = name;
+//    this.id = id;
+//    this.human = true; // Благодаря такому синтаксису функция стала конструктором. С помощью нее можно создавать новых пользователей.
+//    this.hello = function () {
+//       console.log(`Hello, ${this.name}`);
+//    };
+// }
+// // Пример:
+// const ivan = new User('Ivan', 28);
+// const alex = new User('Alex', 20);
+// console.log(ivan);
+// console.log(alex);
+
+// ivan.hello();
+// alex.hello();
+
+// User.prototype.exit = function () {
+//    console.log(`Пользователь ${this.name} ушёл.`);
+// };
+
+// ivan.exit();
+
+//
+//! 75. Контекст вызова this.
+//
+
+// // This - это то, что окружает функцию и в каких условиях она вызывается.
+
+// // Функция может вызываться 4-мя способами. И в каждом контекст вызова отличается.
+
+// // 1. Это просто вызов нашей функции:
+// // Если функция запускается без строгого режима 'use strict' и когда мы исполбзуем в ней контекст вызова, то этот контекст будет ссылаться на глобальный объект window.
+// // А если вкючен строгий режим, то this станет в позицию undefined.
+
+// // function showThis() {
+// //    console.log(this);
+
+// // }
+// // showThis();
+
+// // Задача из собеседования.
+// // function showThis(a, b) {
+// //    console.log(this);
+// //    function sum() {
+// //       console.log(this);
+// //       return a + b;
+// //    }
+// //    console.log(sum());
+// // }
+// // showThis(4, 5);
+
+// // Контекст вызова функции sum = undefined. Не важно где она запускается. Контекст внутри нее не меняется.
+
+// // 2. Если мы исползуем метод внутри объекта, то контекст вызова всегда будет ссылаться на этот объект. То есть, контекст у метода объекта - это сам объект.
+
+// // const obj = {
+// //    a: 20,
+// //    b: 15,
+// //    sum: function () {
+// //       console.log(this);
+// //       function shout() {
+// //          console.log(this);
+// //       }
+// //       shout(); // Это уже простой визов функции. Это не метод объекта. Это фкнуция, которая запускается внутри метода. Поэтому контекст вызова у нее теряется.
+// //    },
+// // };
+// // obj.sum();
+
+// // // 3. this в конструкторах и классах - это новый экземпляр объекта.
+
+// // function User(name, id) {
+// //    this.name = name;
+// //    this.id = id;
+// //    this.human = true;
+// // }
+// // let ivan = new User('Ivan', 28);
+
+// // // 4. Ручное присвоение this любой функции.
+// // // call(), apply(), bind()
+
+// // function sayName(surname) {
+// //    console.log(this);
+// //    console.log(this.name + ' ' + surname);
+// // }
+
+// // const user = {
+// //    name: 'Ivan',
+// // };
+
+// // sayName.call(user, 'Smith');
+// // sayName.apply(user, ['Smith']);
+
+// // function count(num) {
+// //    return this * num;
+// // }
+
+// // const double = count.bind(2);
+// // console.log(double(3));
+
+// // Практика:
+
+// const btn = document.querySelector('button');
+
+// // конда колюэк функция написана в классическом режиме, то в таком случае контекстом вызова будет сам элемент, на котором произошло событие.
+// // В обработчиках событий когда мы используем обычный синтаксис через function, мы имеем доступ к this. Если же мы используем стрелочную функцию, то контекст вызова теряется. И this = undefined.
+// // btn.addEventListener('click', function () {
+// //    console.log(this);
+// //    this.style.backgroundColor = 'red';
+// // });
+
+// btn.addEventListener('click', (e) => {
+//    console.log(this);
+//    e.target.style.backgroundColor = 'red';
+// });
+
+// // У стрелочной функции нет своего контекста вызова. Она его берет у своего родителя.
+// const obj2 = {
+//    num: 5,
+//    sayNumber: function () {
+//       const say = () => {
+//          console.log(this);
+//       };
+//       say();
+//    },
+// };
+// obj2.sayNumber();
+
+// // const double2 = a => a * 2; // Пример того, как можно записывать стрелочные функции сокращая код.
+// // console.log(double2(5));
+
+//
+//! 76. Классы (ES 6).
+//
+
+// // Классы - это красивая обвертка функций-конструкторов (Синтаксический сахар).
+// // Название класса всегда пишется с большой буквы.
+
+// class Rectangle {
+//    constructor(height, width) {
+//       this.height = height;
+//       this.width = width;
+//    }
+
+//    calcArea() {
+//       return this.height * this.width;
+//    }
+// }
+
+// class ColoredRectangleWithText extends Rectangle {
+//    // неследование от предыдущего класса.
+//    constructor(height, width, text, bgColor) {
+//       super(height, width); // универсальный метод, который вызывает суперконструктор родителя и позволяет не переписывать его свойства. Super должен быть всегда на первом месте в конструкторе.
+//       this.text = text;
+//       this.bgColor = bgColor;
+//    }
+
+//    showMyProps() {
+//       console.log(`Текст: ${this.text}, цвет: ${this.bgColor}`);
+//    }
+// }
+
+// const div = new ColoredRectangleWithText(25, 10, 'Hello World', 'red');
+// div.showMyProps();
+// console.log(div.calcArea());
+
+// const square = new Rectangle(10, 10);
+// const long = new Rectangle(20, 100);
+
+// console.log(square.calcArea());
+// console.log(long.calcArea());
+
+//
+//! 79. Rest оператор.
+//
+
+// // Rest оператор - это оператор, который собирает все оставшиеся параметры функции (которые могут приходить, а могут и не приходить) и возвращает их в виде массива.
+
+// const log = function (a, b, ...rest) {
+//    // Rest оператор можно называть как угодно (...r, ...c). Rest оператор всегда записывается последним.
+//    console.log(a, b, rest);
+// };
+
+// // У першому прикладі rest оператор збирає додаткові аргументи у масив і виводить масив цілком.
+// log('basic', 'rest', 'asd', 'afsasfa', 'asgfagewgw');
+
+// function calcOrDouble(number, basis = 2) {
+//    console.log(number * basis);
+// }
+
+// calcOrDouble(3);
+
+// // Задача из теста:
+// function setOptions(height, width, ...additional) {
+//    console.log(height, width, additional);
+// }
+
+// // У другому прикладі rest оператор теж збирає додаткові аргументи у масив, але під час виведення цей масив "розпаковується" (...additional у console.log), і кожен елемент масиву виводиться окремо.
+// setOptions(400, 500, 'red', 'top');
+
+//
+//! 81. JSON формат передачи данных. Глубокое клонирование объектов.
+//
+
+// // JSON - JavaScript Object Notation.
+// // JSON - это набор пар "Ключ - Значение", как и в объекте.
+// // Главное правило - все строки должны быть в двойных кавычках.
+// // В качестве значений могут быть объекты, массивы, числа, строки, логические значения или null.
+// // Напрямую отправлять объекты на сервер мы не можем. Протоколы передачи данных нас не поймут.
+
+// const persone = {
+//    name: 'Alex',
+//    tell: '+380983334455',
+//    parents: {
+//       mom: 'Svetlana',
+//       dad: 'Serhii',
+//    },
+// };
+
+// console.log(JSON.stringify(persone)); // Метод, с помощью которого превращаем данные в JSON формат для отправки на сервер.
+// console.log(JSON.parse(JSON.stringify(persone))); // Метод, с помощью которого превращаем данные из JSON формата, которые пришли нам с сервера.
+
+// const clone = JSON.parse(JSON.stringify(persone)); // Создаём клон объекта. Эта операция превратит существующий объект в формат JSON. Следующая операция возмет JSON и распарсит его обратно в джаваскриптовый объект.
+// console.log(clone);
+
+// clone.parents.mom = 'Olga';
+// console.log(persone);
+// console.log(clone);
+
+//
+//! 82. AJAX и общение с сервером.
+// ЗАПУСКАТЬ НА СЕРВЕРЕ!!!
+
+// AJAX - Asynchronius JavaScript And XML
+
+const inputRub = document.querySelector('#rub'),
+   inputUsd = document.querySelector('#usd');
+
+inputRub.addEventListener('input', () => {
+   const request = new XMLHttpRequest();
+
+   // Методы объекта XMLHttpRequest:
+
+   request.open('GET', 'js/current.json' /* async, login, pass */); // Этот метод собирает настройки, которые помогут сделать request. Последние 3 аргумента необязательны.
+   request.setRequestHeader('Content-type', 'application/json charset=utf-8'); // В этом методе указывается что именно мы передаем: какая это информация, в чем она закодирована и т. д. Чтобы сервер "понимал", что он принимпет в себя.
+   request.send();
+
+   // Свойства объекта XMLHttpRequest:
+
+   // status - 200, 300, 404, 500.
+   // statusText - текстовое описание ответа от сервера (OK, Not Dound...).
+   // response - ответ от сервера.
+   // readyState - содержит текущее состояние нашего запроса.
+
+   // Собития обекта XMLHttpRequest:
+
+   request.addEventListener('readystatechange', () => {
+      if (request.readyState === 4 && request.status === 200) {
+         console.log(request.response);
+         const data = JSON.parse(request.response);
+         inputUsd.value = (+inputRub.value / data.current.usd).toFixed(2);
+      } else {
+         inputUsd.value = 'Что-то пошло не так!';
+      }
+   }); // Это событие отслеживает состояние нашего запроса в данный момент.
+});
