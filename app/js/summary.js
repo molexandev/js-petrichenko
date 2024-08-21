@@ -1376,36 +1376,224 @@
 //! 82. AJAX и общение с сервером.
 // ЗАПУСКАТЬ НА СЕРВЕРЕ!!!
 
-// AJAX - Asynchronius JavaScript And XML
+// // AJAX - Asynchronius JavaScript And XML
 
-const inputRub = document.querySelector('#rub'),
-   inputUsd = document.querySelector('#usd');
+// const inputRub = document.querySelector('#rub'),
+//    inputUsd = document.querySelector('#usd');
 
-inputRub.addEventListener('input', () => {
-   const request = new XMLHttpRequest();
+// inputRub.addEventListener('input', () => {
+//    const request = new XMLHttpRequest();
 
-   // Методы объекта XMLHttpRequest:
+//    // Методы объекта XMLHttpRequest:
 
-   request.open('GET', 'js/current.json' /* async, login, pass */); // Этот метод собирает настройки, которые помогут сделать request. Последние 3 аргумента необязательны.
-   request.setRequestHeader('Content-type', 'application/json charset=utf-8'); // В этом методе указывается что именно мы передаем: какая это информация, в чем она закодирована и т. д. Чтобы сервер "понимал", что он принимпет в себя.
-   request.send();
+//    request.open('GET', 'js/current.json' /* async, login, pass */); // Этот метод собирает настройки, которые помогут сделать request. Последние 3 аргумента необязательны.
+//    request.setRequestHeader('Content-type', 'application/json charset=utf-8'); // В этом методе указывается что именно мы передаем: какая это информация, в чем она закодирована и т. д. Чтобы сервер "понимал", что он принимпет в себя.
+//    request.send();
 
-   // Свойства объекта XMLHttpRequest:
+//    // Свойства объекта XMLHttpRequest:
 
-   // status - 200, 300, 404, 500.
-   // statusText - текстовое описание ответа от сервера (OK, Not Dound...).
-   // response - ответ от сервера.
-   // readyState - содержит текущее состояние нашего запроса.
+//    // status - 200, 300, 404, 500.
+//    // statusText - текстовое описание ответа от сервера (OK, Not Dound...).
+//    // response - ответ от сервера.
+//    // readyState - содержит текущее состояние нашего запроса.
 
-   // Собития обекта XMLHttpRequest:
+//    // Собития обекта XMLHttpRequest:
 
-   request.addEventListener('readystatechange', () => {
-      if (request.readyState === 4 && request.status === 200) {
-         console.log(request.response);
-         const data = JSON.parse(request.response);
-         inputUsd.value = (+inputRub.value / data.current.usd).toFixed(2);
-      } else {
-         inputUsd.value = 'Что-то пошло не так!';
-      }
-   }); // Это событие отслеживает состояние нашего запроса в данный момент.
-});
+//    request.addEventListener('readystatechange', () => {
+//       if (request.readyState === 4 && request.status === 200) {
+//          console.log(request.response);
+//          const data = JSON.parse(request.response);
+//          inputUsd.value = (+inputRub.value / data.current.usd).toFixed(2);
+//       } else {
+//          inputUsd.value = 'Что-то пошло не так!';
+//       }
+//    }); // Это событие отслеживает состояние нашего запроса в данный момент.
+// });
+
+//
+//! 85. Promise (ES6).
+//
+
+// // Очень часто мы хотим в коде сделать последовательность каких-то действий. Если что-то произошло, то мы выполним какое-то действие. И так может продолжпться по цепочке. То есть, если произошло что-то, то мы "обещаем", что у нас выполнится следующее действие. Наприсер, когда выполняется событие клика на какой-то элемент, то только в этом случае должно произойти какое-то действие. Для этого мы используем колбеки. Однако довольно часто таких мы можем встретить много таких действий, которые идут одно за одним после выполнения предыдущего. Для такого кода можно написать много функций обратного вызова. И он превратится в нечитабельный код.
+
+// // console.log('Запрос данных...');
+
+// // setTimeout(() => {
+// //    console.log('Подготовка данных...');
+
+// //    const product = {
+// //       name: 'TV',
+// //       price: 2000,
+// //    };
+
+// //    setTimeout(() => {
+// //       product.status = 'ordered';
+// //       console.log(product);
+// //    }, 2000);
+// // }, 2000);
+
+// // Как мы видим у нас начинает разростаться дерево колбеков.
+// // И вот для того, чтобы не попадать в колбек-хэлл, нам понадобятся промисы.
+
+// //
+
+// // const req = new Promise(function (resolve, reject) {
+// //    // resolve и reject обозначают функции, которые в будущем мы можем сами передавать.
+// //    // resolve - значит, что что-то выполнилось правильно.
+// //    // reject - означает, что наше обещание не выполнилось и что-то пошло не так.
+// //    console.log('Запрос данных...');
+
+// //    setTimeout(() => {
+// //       console.log('Подготовка данных...');
+
+// //       const product = {
+// //          name: 'TV',
+// //          price: 2000,
+// //       };
+
+// //       resolve(product);
+// //    }, 2000);
+// // });
+
+// // // then - это метод, который выполняется на промисе в случае положительного исхода. Он принимает в себя тот аргумент с функцией, которая называется resolve.
+// // req.then((product) => {
+// //    return new Promise((resolve, reject) => {
+// //       setTimeout(() => {
+// //          product.status = 'ordered';
+// //          resolve(product);
+// //       }, 2000);
+// //    });
+// // })
+// //    .then((data) => {
+// //       data.modify = true;
+// //       return data;
+// //    })
+// //    .then((data) => {
+// //       console.log(data);
+// //    })
+// //    .catch(() => {
+// //       console.log('Произошла ошибка!');
+// //    })
+// //    .finally(() => {
+// //       setTimeout(() => {
+// //          console.log('finally');
+// //       }, 1000);
+// //    });
+
+// const test = (time) => {
+//    return new Promise((resolve) => {
+//       setTimeout(() => resolve(), time);
+//    });
+// };
+
+// // test(1000).then(() => console.log('1000 ms'));
+// // test(2000).then(() => console.log('2000 ms'));
+
+// // Promise.all() занимается тем, что ждет окончания всех промисов, которые были переданы в масив. И только потом он что-то выполняет.
+// Promise.all([test(1000), test(2000)]).then(() => {
+//    console.log('All');
+// });
+
+// // Promise.race() выполняет свои действия когда самый первый промис завершит свое выполнение.
+// Promise.race([test(1000), test(2000)]).then(() => {
+//    console.log('All');
+// });
+
+//
+//! 86. Fetch API.
+//
+
+// // API - application programic interface.
+// // API - это набор данных и возможностей, которые предоставляет нам какое-то готовое решение.
+// // Fetch API - это современная и крайне удобная технология, которая позволяет общаться с сервером и она построена на промисах. Она уже встроена в браузер.
+// // https://jsonplaceholder.typicode.com/
+
+// // fetch('https://jsonplaceholder.typicode.com/todos/1') // Из этой конструкции возвращается именно промис, который мы обрабатываем при помощи цепочки then.
+// //    .then((response) => response.json()) // Метод json() превратит ответ от сервера в обичный джаваскриптовый объект. response.json() возвращает промис, чтобы построить цепочку.
+// //    .then((json) => console.log(json));
+
+// // Для того, чтобы делать другие запросы (POST, PUT и т. д.) нужно добавить небольшие настройки:
+// fetch('https://jsonplaceholder.typicode.com/posts', {
+//    method: 'POST',
+//    body: JSON.stringify({ name: 'Alex' }),
+//    headers: {
+//       'Content-type': 'application/json',
+//    },
+// })
+//    .then((response) => response.json())
+//    .then((json) => console.log(json));
+
+//
+//! 87. Методы перебора массивов.
+//
+
+// forEach - просто перебирает какой-то массив и НЕ возвращает новый.
+// filter, map и другие методы перебирают массив и возвращают новый.
+
+// filter()
+
+// const names = ['Ivan', 'Ann', 'Oleksandr', 'Voldemart', 'Ksenia'];
+// const shortNames = names.filter(function (name) {
+//    return name.length < 5;
+// });
+// console.log(shortNames);
+
+// // map()
+// // Позволяет взять исходный массив и изменить каждый элемент внутри него.
+
+// const ansvers = ['IvAn', 'AnNA', 'OleXandr', 'Hello'];
+// // ansvers = ansvers.map((item) => item.toLowerCase());
+// // console.log(ansvers);
+// const result = ansvers.map((item) => item.toLowerCase());
+// console.log(result);
+
+// every()
+// some()
+// Эти два метода возвращают булиновые значения.
+
+// some - берет массив, перебирает его и, если хотябы один элемент подходит под условие, которое задается в колбэк функции, то в таком случае он вернет true, а если нет - false.
+
+// every - если все элементы подходят под условие, то метод вернет true.
+
+// const someArr = [5, 'qwerty', 'asd'];
+
+// console.log(someArr.some((item) => typeof item == 'number'));
+// console.log(someArr.every((item) => typeof item == 'number'));
+
+// reduce()
+// Служит для того, чтобы собирать массив в единое целое.
+
+// const arr = [4, 5, 3, 1, 2, 6];
+
+// const res = arr.reduce((sum, current) => sum + current, 3);
+// console.log(res);
+// sum - это сумма всех элементов. Изначально равна 0.
+// current - это непосредственно каждый элемент, который приходит из массива.
+// 3 - это дополнительный третий и необязательный аргумент, в который можно передать начальное значение.
+
+// вариант с forEach()
+// let num = 0;
+// arr.forEach((item) => {
+//    num += item;
+// });
+// console.log(num);
+
+// reduce может работать со строками.
+
+// const fruits = ['Apple', 'Pear', 'Plum'];
+// const str = fruits.reduce((sum, current) => `${sum}, ${current}`);
+// console.log(str);
+
+// Практический пример:
+
+const obj = {
+   Ivan: 'persone',
+   Ann: 'persone',
+   dog: 'animal',
+   cat: 'animal',
+};
+
+const newArr = Object.entries(obj)
+   .filter((item) => item[1] === 'persone')
+   .map((item) => item[0]);
+console.log(newArr);
