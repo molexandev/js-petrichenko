@@ -1527,10 +1527,10 @@
 //! 87. Методы перебора массивов.
 //
 
-// forEach - просто перебирает какой-то массив и НЕ возвращает новый.
-// filter, map и другие методы перебирают массив и возвращают новый.
+// // forEach - просто перебирает какой-то массив и НЕ возвращает новый.
+// // filter, map и другие методы перебирают массив и возвращают новый.
 
-// filter()
+// // filter()
 
 // const names = ['Ivan', 'Ann', 'Oleksandr', 'Voldemart', 'Ksenia'];
 // const shortNames = names.filter(function (name) {
@@ -1547,53 +1547,81 @@
 // const result = ansvers.map((item) => item.toLowerCase());
 // console.log(result);
 
-// every()
-// some()
-// Эти два метода возвращают булиновые значения.
+// // every();
+// // some();
+// // Эти два метода возвращают булиновые значения.
 
-// some - берет массив, перебирает его и, если хотябы один элемент подходит под условие, которое задается в колбэк функции, то в таком случае он вернет true, а если нет - false.
+// // some - берет массив, перебирает его и, если хотябы один элемент подходит под условие, которое задается в колбэк функции, то в таком случае он вернет true, а если нет - false.
 
-// every - если все элементы подходят под условие, то метод вернет true.
+// // every - если все элементы подходят под условие, то метод вернет true.
 
 // const someArr = [5, 'qwerty', 'asd'];
 
 // console.log(someArr.some((item) => typeof item == 'number'));
 // console.log(someArr.every((item) => typeof item == 'number'));
 
-// reduce()
-// Служит для того, чтобы собирать массив в единое целое.
+// // reduce();
+// // Служит для того, чтобы собирать массив в единое целое.
 
 // const arr = [4, 5, 3, 1, 2, 6];
 
 // const res = arr.reduce((sum, current) => sum + current, 3);
 // console.log(res);
-// sum - это сумма всех элементов. Изначально равна 0.
-// current - это непосредственно каждый элемент, который приходит из массива.
-// 3 - это дополнительный третий и необязательный аргумент, в который можно передать начальное значение.
+// // sum - это сумма всех элементов. Изначально равна 0.
+// // current - это непосредственно каждый элемент, который приходит из массива.
+// // 3 - это дополнительный третий и необязательный аргумент, в который можно передать начальное значение.
 
-// вариант с forEach()
+// // вариант с forEach()
 // let num = 0;
 // arr.forEach((item) => {
 //    num += item;
 // });
 // console.log(num);
 
-// reduce может работать со строками.
+// // reduce может работать со строками.
 
 // const fruits = ['Apple', 'Pear', 'Plum'];
 // const str = fruits.reduce((sum, current) => `${sum}, ${current}`);
 // console.log(str);
 
-// Практический пример:
+// // Практический пример:
 
-const obj = {
-   Ivan: 'persone',
-   Ann: 'persone',
-   dog: 'animal',
-   cat: 'animal',
-};
+// const obj = {
+//    Ivan: 'persone',
+//    Ann: 'persone',
+//    dog: 'animal',
+//    cat: 'animal',
+// };
 
-const newArr = Object.entries(obj)
-   .filter((item) => item[1] === 'persone')
-   .map((item) => item[0]);
-console.log(newArr);
+// const newArr = Object.entries(obj)
+//    .filter((item) => item[1] === 'persone')
+//    .map((item) => item[0]);
+// console.log(newArr);
+
+// const funds = [
+//    { amount: 1400 },
+//    { amount: 2400 },
+//    { amount: 1000 },
+//    { amount: 500 },
+//    { amount: 10400 },
+//    { amount: 11400 },
+// ];
+
+// const getPositiveIncomeAmount = (data) => {
+//    return data
+//       .filter((item) => item.amount > 0)
+//       .map((item) => item.amount)
+//       .reduce((sum, current) => sum + current);
+// };
+
+// const getTotalIncomeAmount = (data) => {
+//    if (data.some((item) => item.amount < 0)) {
+//       return data
+//          .map((item) => item.amount)
+//          .reduce((sum, current) => sum + current);
+//    } else {
+//       return getPositiveIncomeAmount(data);
+//    }
+// };
+
+// console.log(getTotalIncomeAmount(funds));
